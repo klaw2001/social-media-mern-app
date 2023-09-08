@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="index.html">Add User</a>
+    <table border="1" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Password</th>
+                
+            </tr>
+        </thead>
+        <tbody id="bodydata">
+
+        </tbody>
+    </table>
+    <script>
+        fetch("http://localhost:8000/users/get-users")
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data.data)
+                var tr = ''
+                var sr = 1;
+                var path = data.path
+                data.data.forEach(element => {
+                    console.log(element)
+                    tr += `<tr>
+                        <td>${sr++}</td>
+                        <td>${element.email}</td>
+                        <td>${element.username}</td>
+                        
+                        </tr>`
+                })
+                bodydata.innerHTML = tr
+            })
+    </script>
+</body>
+</html>

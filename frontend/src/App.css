@@ -1,0 +1,52 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Jost', sans-serif;
+
+}
+
+.css-1633um2-MuiPaper-root {
+  box-shadow: none !important;
+}
+
+.MuiBox-root.css-88orpf {
+  width: 100%;
+}
+
+.add-post-form {
+  width: 100%;
+}
+
+.bg-transparent {
+  background-color: transparent;
+  border: none;
+}
+
+.btn-group {
+  gap: 10px;
+}
+
+.btn-group button {
+  background-color: #0d6efd;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.btn-group button:hover {
+  background-color: #0d6efd;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.MuiBox-root.css-1xd2ho9 {
+  width: 100%;
+}
+
+.icon-button {
+  background-color: #0d6dfd2f !important;
+}
+
+.profile-btns {
+  gap: 20px;
+}
