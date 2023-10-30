@@ -10,9 +10,7 @@ const ProtectedRoute = () => {
         {
             auth?
             <>
-                {/* <Home/> */}
                 <AppDrawer/>
-                {/* <Outlet></Outlet> */}
             </>
             : <Navigate to='/login'/>
         }

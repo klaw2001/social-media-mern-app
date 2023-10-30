@@ -19,7 +19,6 @@ const LoggedUser = () => {
       .get(`http://localhost:8000/users/get-single-user/${userDetail}`)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data.data)
           setSingleUser(response.data.data);
         }
       })
@@ -39,7 +38,6 @@ const LoggedUser = () => {
         );
 
         setPosts(sortedPosts);
-        console.log(sortedPosts.length);
       }
     } catch (error) {
       console.error("Error fetching posts:", error);

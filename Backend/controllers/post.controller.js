@@ -59,20 +59,19 @@ export const getPosts = async (req, res) => {
     });
   }
 };
-  
-  export const getUserPosts = async (req, res) => {
-    try {
-      const userID = req.params.user_id;
-      const userPosts = await postModel.find({ userID: userID });
-       if (!userPosts) {
-         return res.status(404).json({ message: "User's posts not found" });
-       }
-       return res.status(200).json({ data: userPosts });
-     } catch (error) {
-       return res.status(500).json({ message: "Internal server error" });
-     }
+
+export const getUserPosts = async (req, res) => {
+  try {
+    const userID = req.params.user_id;
+    const userPosts = await postModel.find({ userID: userID });
+    if (!userPosts) {
+      return res.status(404).json({ message: "User's posts not found" });
     }
-    
+    return res.status(200).json({ data: userPosts });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 export const addPost = (req, res) => {
   try {

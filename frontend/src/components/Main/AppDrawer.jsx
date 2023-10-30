@@ -16,11 +16,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import MailIcon from "@mui/icons-material/Mail";
 import { Outlet, useNavigate } from "react-router-dom";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import TagIcon from "@mui/icons-material/Tag";
+import { Badge, Button } from "@mui/material";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -106,10 +107,9 @@ export default function AppDrawer() {
     setOpen(false);
   };
 
-
-  const onHashHandler = () =>{
-    navigate('/')
-  }
+  const onHashHandler = () => {
+    navigate("/");
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -127,8 +127,18 @@ export default function AppDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Kilogram
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            className="d-flex align-items-center justify-content-between w-100"
+          >
+            <h2>Kilogram</h2>
+            <button variant="contained" className="bg-transparent me-5 text-light">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </button>
           </Typography>
         </Toolbar>
       </AppBar>

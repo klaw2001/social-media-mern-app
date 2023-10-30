@@ -10,16 +10,21 @@ import ViewProfile from "./components/Users/ViewProfile";
 import AppDrawer from "./components/Main/AppDrawer";
 import GridHomePage from "./components/GridHome/GridHomePage";
 import EditProfileComp from "./components/Users/EditProfileComp";
+import { io } from "socket.io-client";
+import { useEffect } from "react";
 
 function App() {
+  // useEffect(() => {
+  //   const socket = io("http://localhost:5000");
+  // }, []);
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" element={<ProtectedRoute />}>
-            <Route path="/" element={<GridHomePage />} index="true"/>
-              <Route path="/view-profile" element={<ViewProfile />} />
-              <Route path="/edit-profile" element={<EditProfileComp />} />
+            <Route path="/" element={<GridHomePage />} index="true" />
+            <Route path="/view-profile" element={<ViewProfile />} />
+            <Route path="/edit-profile" element={<EditProfileComp />} />
             {/* </Route> */}
           </Route>
 
