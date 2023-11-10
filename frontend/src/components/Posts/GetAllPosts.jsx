@@ -10,9 +10,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import TextField from "@mui/material/TextField";
 import CommentIcon from "@mui/icons-material/Comment";
+import Grid from "@mui/material/Unstable_Grid2";
+import SendIcon from "@mui/icons-material/Send";
 
 const GetAllPosts = () => {
   const [posts, setPosts] = useState([]);
+  const [singleUser, setSingleUser] = useState({});
   const [commentInput, setCommentInput] = useState("");
   const [userDetail, setUserDetail] = useState(
     localStorage.getItem("userDetails")
@@ -41,6 +44,17 @@ const GetAllPosts = () => {
 
     fetchPosts();
   }, [posts]);
+
+  useEffect(() => {
+    const getSingleUser = () => {
+      const response = axios
+        .get(`http://localhost:8000/users/get-single-user/${userDetail}`)
+        .then((res) => {
+          setSingleUser(res.data.data);
+        });
+    };
+    getSingleUser();
+  }, []);
 
   const handleEditClick = (postId, initialContent) => {
     setEditedContent(initialContent);
@@ -213,8 +227,8 @@ const GetAllPosts = () => {
       }
     );
 
-    if(response.status === 200){
-      console.log('User Followed')
+    if (response.status === 200) {
+      console.log("User Followed");
     }
   };
   const onUnFollowHandler = (userid) => {
@@ -225,22 +239,19 @@ const GetAllPosts = () => {
       }
     );
 
-    if(response.status === 200){
-      console.log('User Followed')
+    if (response.status === 200) {
+      console.log("User Followed");
     }
   };
 
-  const toggleHandler = (userid,post) =>{
-    const isFollowing = post?.users?.followers.includes(userDetail)
-    if(!isFollowing){
-      onFollowHandler(userid)
-    } else{
-      onUnFollowHandler(userid)
-      
+  const toggleHandler = (userid, post) => {
+    const isFollowing = post?.users?.followers.includes(userDetail);
+    if (!isFollowing) {
+      onFollowHandler(userid);
+    } else {
+      onUnFollowHandler(userid);
     }
-  }
-
-  
+  };
 
   return (
     <Box>
@@ -264,14 +275,15 @@ const GetAllPosts = () => {
               </span>
               <span className="fs-6 fw-normal">({post.users?.username})</span>
               {post.users._id !== userDetail && (
-                 <button
-                 className="btn btn-primary py-0 fs-6 ms-2"
-                 onClick={() => toggleHandler(post.users._id, post)}
-               >
-                 {post.users.followers.includes(userDetail) ? "Unfollow" : "Follow"}
-               </button>
+                <button
+                  className="btn btn-primary py-0 fs-6 ms-2"
+                  onClick={() => toggleHandler(post.users._id, post)}
+                >
+                  {post.users.followers.includes(userDetail)
+                    ? "Unfollow"
+                    : "Follow"}
+                </button>
               )}
-              
             </Typography>
           </div>
 
@@ -328,9 +340,7 @@ const GetAllPosts = () => {
                     onClick={() => toggleComments(post._id)}
                   >
                     <CommentIcon className="text-primary me-1" />
-                    {showComments.postId === post._id
-                      ? "Hide Comments"
-                      : "Show Comments"}
+                    {showComments.postId === post._id}
                   </button>
                 </div>
               </div>
@@ -376,35 +386,63 @@ const GetAllPosts = () => {
               </div>
             </div>
             {showComments.postId === post._id && (
-              <div>
+              <div className="py-3">
                 {post.comments.map((comment, index) => (
-                  <div key={index}>
+                  <div key={index} className="py-1">
                     <Typography variant="body2" color="">
-                      {/* <span className="fw-bold">
-                        {comment.user.firstname} {comment.user.lastname}{" "}
+                      <span className="fs-6 fw-normal pe-1">
+                        {singleUser.username}
                       </span>
-                      <span className="fs-6 fw-normal">
-                        ({comment.user.username})
-                      </span> */}
-                      : {comment.comment}
+                       : {comment.comment}
                     </Typography>
                   </div>
                 ))}
-                <TextField
-                  multiline
-                  fullWidth
-                  variant="outlined"
-                  label="Add a Comment"
-                  value={commentInput}
-                  className="my-3"
-                  onChange={handleCommentChange}
-                />
-                <button
-                  className="bg-transparent"
-                  onClick={() => handleCommentSubmit(post._id)}
-                >
-                  Submit Comment
-                </button>
+                <Box sx={{ paddingTop: 3 }}>
+                  <Grid container spacing={2} sx={{ position: "relative" }}>
+                    <Grid xs={12}>
+                      {/* <TextField
+                        style={{ borderRadius: "20px" }}
+                        multiline
+                        fullWidth
+                        variant="outlined"
+                        placeholder="Add a Comment"
+                        value={commentInput}
+                        // className="rounded-pill"
+                        onChange={handleCommentChange}
+                      /> */}
+                      <input
+                        type="text"
+                        value={commentInput}
+                        onChange={handleCommentChange}
+                        className="p-3 w-100 rounded-pill border-1"
+                        placeholder="Add a Comment"
+                      />
+                      <button
+                        style={{
+                          backgroundColor: "#0288d1",
+                          height: 53,
+                          width: 64,
+                          right: 0,
+                          border: "none",
+                          borderTopRightRadius: "50%",
+                          borderBottomRightRadius: "50%",
+                          position: "absolute",
+                        }}
+                        // className="bg-transparent"
+                        onClick={() => handleCommentSubmit(post._id)}
+                      >
+                        <SendIcon
+                          sx={{ fill: "white" }}
+                          color="white"
+                          style={{ fill: "white" }}
+                        />
+                      </button>
+                    </Grid>
+                    {/* <Grid xs={1}>
+                      
+                    </Grid> */}
+                  </Grid>
+                </Box>
               </div>
             )}
           </div>

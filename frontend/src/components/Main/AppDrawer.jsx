@@ -134,7 +134,10 @@ export default function AppDrawer() {
             className="d-flex align-items-center justify-content-between w-100"
           >
             <h2>Kilogram</h2>
-            <button variant="contained" className="bg-transparent me-5 text-light">
+            <button
+              variant="contained"
+              className="bg-transparent me-5 text-light"
+            >
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
@@ -154,7 +157,7 @@ export default function AppDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Explore", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {["Explore", "Messages", "Profile", "Drafts"].map((text, index) => (
             <ListItem
               key={text}
               disablePadding
@@ -184,7 +187,7 @@ export default function AppDrawer() {
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Logout"].map((text, index) => (
+          {["Logout"].map((text, index) => (
             <ListItem
               key={text}
               disablePadding
